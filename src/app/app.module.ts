@@ -17,6 +17,7 @@ import {
   MatSortModule
 } from '@angular/material';
 import { UserTableComponent } from './user-table/user-table.component';
+import {ScrollDispatchModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UserTableComponent } from './user-table/user-table.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    ScrollDispatchModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

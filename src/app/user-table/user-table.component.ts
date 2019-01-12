@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { UserTableDataSource } from './user-table-datasource';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-user-table',
@@ -8,7 +9,6 @@ import { UserTableDataSource } from './user-table-datasource';
   styleUrls: ['./user-table.component.scss']
 })
 export class UserTableComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: UserTableDataSource;
 
@@ -16,6 +16,6 @@ export class UserTableComponent implements OnInit {
   displayedColumns = ['id', 'name'];
 
   ngOnInit() {
-    this.dataSource = new UserTableDataSource(this.paginator, this.sort);
+    this.dataSource = new UserTableDataSource(this.sort);
   }
 }
