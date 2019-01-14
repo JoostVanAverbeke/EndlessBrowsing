@@ -27,6 +27,15 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## References
+
+### Angular Material Virtual Scrolling
+
+See Official Angular Material github [virtual scrolling demo app](https://github.com/angular/material2/tree/31fd6a216b4155a219bb3c3f4eadb9dfa7c12ac0/src/demo-app/virtual-scroll)
+
 ### How to Use Infinite Virtual Scroll Feature in Angular 7 with Angular Material 7 CDK
 
 YouTube video [Infinite Virtual Scroll in Angular 7 with Angular Material 7 CDK] (https://www.youtube.com/watch?v=vMOQHVqBvaw)
+
+See also the following repository on github [Angular 7 application showcasing Pagination and Virtual Scroll using Angular Material](https://github.com/abhilashahyd/ang-mat-appl)
+
+See also [https://github.com/angular/material2/issues/9858](https://github.com/angular/material2/issues/9858) for examples.

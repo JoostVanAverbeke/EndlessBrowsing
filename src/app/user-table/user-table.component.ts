@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { UserTableDataSource } from './user-table-datasource';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-user-table',

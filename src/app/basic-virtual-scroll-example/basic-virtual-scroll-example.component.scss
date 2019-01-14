@@ -1,0 +1,18 @@
+.example-viewport {
+  height: 100vh;
+  border: 1px solid black;
+  overflow-x: hidden;
+}
+
+.example-item {
+  height: 50px;
+}
+
+#example-text {
+  width: 200px;
+  margin: auto;
+  background: #CCC;
+  position: relative;
+
+  padding: 5px 0;
+}
