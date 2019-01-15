@@ -1,6 +1,6 @@
-import {CdkVirtualScrollViewport, VirtualScrollStrategy} from "@angular/cdk/scrolling";
-import {Observable, Subject} from "rxjs";
-import {distinctUntilChanged} from "rxjs/operators";
+import {CdkVirtualScrollViewport, VirtualScrollStrategy} from '@angular/cdk/scrolling';
+import {Observable, Subject} from 'rxjs';
+import {distinctUntilChanged} from 'rxjs/operators';
 
 export class TableVirtualScrollStrategy implements VirtualScrollStrategy {
 
@@ -63,6 +63,12 @@ export class TableVirtualScrollStrategy implements VirtualScrollStrategy {
 
   private updateContent(viewport: CdkVirtualScrollViewport) {
     if (viewport) {
+      /*
+        TODO(JVA) I presume
+        viewport.getViewportSize() = size of the view port in pixels
+        this.scrollHeight is the height of one row in pixels (px)
+        this.bufferSize * 2: buffer 5 rows before the viewport and 5 after.
+       */
       const range = Math.ceil(viewport.getViewportSize() / this.scrollHeight) + this.bufferSize * 2;
       const newIndex = Math.max(0, Math.round((viewport.measureScrollOffset() - this.headerOffset) / this.scrollHeight) - this.bufferSize);
       const dataLength = this.dataLength;

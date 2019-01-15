@@ -1,9 +1,9 @@
-import {ContentChild, Directive, forwardRef, Input, OnChanges, OnInit} from '@angular/core';
-import {CdkVirtualScrollViewport, VIRTUAL_SCROLL_STRATEGY} from "@angular/cdk/scrolling";
-import {combineLatest, Observable} from "rxjs";
-import {MatTable} from "@angular/material";
-import {map} from "rxjs/operators";
-import {TableVirtualScrollStrategy} from "./table-virtual-scroll-strategy";
+import {ContentChild, Directive, forwardRef, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {CdkVirtualScrollViewport, VIRTUAL_SCROLL_STRATEGY} from '@angular/cdk/scrolling';
+import {combineLatest, Observable, Subscription} from 'rxjs';
+import {MatTable} from '@angular/material';
+import {map} from 'rxjs/operators';
+import {TableVirtualScrollStrategy} from './table-virtual-scroll-strategy';
 
 export function scrollStrategyFactory(scroll: TableFixedSizeVirtualScroll) {
   return scroll.scrollStrategy;
@@ -17,7 +17,7 @@ export function scrollStrategyFactory(scroll: TableFixedSizeVirtualScroll) {
     deps: [forwardRef(() => TableFixedSizeVirtualScroll)],
   }]
 })
-export class TableFixedSizeVirtualScroll implements OnChanges, OnInit {
+export class TableFixedSizeVirtualScroll implements OnChanges, OnInit, OnDestroy {
   @Input()
   rowHeight: number = 40;
 
@@ -35,6 +35,8 @@ export class TableFixedSizeVirtualScroll implements OnChanges, OnInit {
 
   public scrollStrategy = new TableVirtualScrollStrategy(this.rowHeight, this.offset);
 
+  private subscription: Subscription;
+
   public ngOnInit() {
     /*
       When the one of the observables this.tableData, or this.viewport.renderedRangeStream emits a value,
@@ -48,19 +50,23 @@ export class TableFixedSizeVirtualScroll implements OnChanges, OnInit {
      */
     this.table.dataSource = combineLatest([this.tableData, this.viewport.renderedRangeStream]).pipe(
       map((value) => {
-        console.log("viewport start = " + value[1].start + ", end = ", value[1].end)
+        console.log('viewport start = ' + value[1].start + ', end = ', value[1].end)
         return value[0].slice(value[1].start, value[1].end);
       })
     );
 
-    // TODO: cleanup the subscription
-    this.tableData.subscribe((data) => {
+    this.subscription = this.tableData.subscribe((data) => {
+      console.log('current data range has length = ' + data.length);
       this.scrollStrategy.setDataLength(data.length);
     });
   }
 
   public ngOnChanges() {
     this.scrollStrategy.setScrollHeight(this.rowHeight, this.offset);
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
 
